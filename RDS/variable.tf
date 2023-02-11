@@ -32,6 +32,12 @@ variable instance_class {
   description = "Please provide a value"
 }
 
+variable db_name {
+  type = string
+  default = ""
+  description = "Please provide a value"
+}
+
 variable username {
   type = string
   default = ""
@@ -43,12 +49,9 @@ variable password {
   default = ""
   description = "Please provide a value"
 }
+
 variable publicly_accessible {
   type = string
   default = ""
   description = "Please provide a value"
 }
-
-
-
-
