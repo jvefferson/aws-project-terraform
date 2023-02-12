@@ -5,10 +5,10 @@ resource "aws_launch_template" "foobar" {
 }
 
 resource "aws_autoscaling_group" "bar" {
-  availability_zones = ["us-east-1a"]
-  desired_capacity   = var.desired_capacity
-  max_size           = var.max_size
-  min_size           = var.min_size
+  vpc_zone_identifier = var.subnets
+  desired_capacity    = var.desired_capacity
+  max_size            = var.max_size
+  min_size            = var.min_size
 
   launch_template {
     id      = aws_launch_template.foobar.id
@@ -17,8 +17,8 @@ resource "aws_autoscaling_group" "bar" {
 }
 
 resource "aws_elb" "bar" {
-  name               = "foobar-terraform-elb"
-  availability_zones = ["us-east-1a"]
+  name    = "foobar-terraform-elb"
+  subnets = var.subnets
   listener {
     instance_port     = 80
     instance_protocol = "http"
@@ -42,3 +42,4 @@ resource "aws_autoscaling_attachment" "asg_attachment_bar" {
   autoscaling_group_name = aws_autoscaling_group.bar.id
   elb                    = aws_elb.bar.id
 }
+
